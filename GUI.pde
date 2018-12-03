@@ -166,11 +166,11 @@ void SetupMenu(int unit, int xMult, int wMult) {
   sliders[1] = cp5.addSlider("zone_count")
     .setPosition(unit*xMult+5, header-(margin))
     .setWidth(unit*wMult-10)
-    .setRange(3, 5)
+    .setRange(1, 3)
     .setValue(zone_count)
     .setGroup(groups[0])
     .setSliderMode(Slider.FLEXIBLE)
-    .setNumberOfTickMarks(2)
+    .setNumberOfTickMarks(3)
     ;    
 
   // reposition the Label for controller 'slider'
