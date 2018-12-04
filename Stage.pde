@@ -7,6 +7,7 @@ int lightCount;
 void Survey() {
   int guicount = 4;  
   lightCount = coneCount * scannerCount;
+  println ("**********************************************is it here?");
   lights = new Light[lightCount];
   butts = new Button[lightCount];
   guis = new GUI[guicount];

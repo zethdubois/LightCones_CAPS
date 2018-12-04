@@ -75,6 +75,7 @@ void draw() {
     }
     fill(100);
 
+    //-- every frame, trace the buttons with individual border color
     for (Light light : lights) {
       light.Display();
     }
@@ -82,11 +83,19 @@ void draw() {
 }
 
 void Start () {
+  if (!initTF) {
+    for (Light light : lights) {
+
+      println("here is a light: "+light.name);
+      cp5.getController(light.name).remove();
+    }
+  }
   Survey();
   if (initTF) DrawGui();
   start.setSize(0, 0);
   PAUSE = false;
   start.hide();
+
   for (Light light : lights) {
     light.MakeButtons();
   }

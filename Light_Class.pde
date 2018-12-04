@@ -38,6 +38,8 @@ class Light {
     }
   }
   void MakeButtons() {
+    println("*******************MAKE BUTTONS ---"+buttI);
+
     String hColor  = "#"+(hex(color(cPick)).substring(2));
     //println("hColor = "+hColor);
     CColor col = new CColor();
@@ -46,6 +48,11 @@ class Light {
     col.setBackground(color(offBlack));
     col.setCaptionLabel(color(100));
 
+    if (!initTF)
+    {
+
+      //cp5.getController(butts[buttI].getName()).remove();
+    }
 
 
     butts[buttI] = cp5.addButton(name).setPosition(x+buttCush, y+buttCush)
@@ -56,7 +63,7 @@ class Light {
       .setStringValue(hColor)
       .setFont(createFont("calibri light bold", 13))
       .setOff()
-          .setBroadcast(true);      
+      .setBroadcast(true);      
     ;
     butts[buttI].addCallback(new CallbackListener() {
       public void controlEvent(CallbackEvent theEvent) {

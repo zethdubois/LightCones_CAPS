@@ -100,7 +100,7 @@ void DrawConsole() {
 
   console = cp5.addTextarea("console")
     .setPosition(margin, height-footer-margin)
-    .setSize(w, footer)
+    .setSize(width/3*2-margin*2, footer)
     .setFont(createFont("consolas", 12))
     .setColor(color(100))
     .setColorBackground(color(45, 70, 95))
@@ -109,13 +109,13 @@ void DrawConsole() {
     ;
   connect_B = cp5.addButton("connect_B")
     .setBroadcast(false)
-    .setPosition(margin+w+6, height-footer-margin+4)
-    .setSize(side-8, footer-8)
+    .setPosition(width/3*2, height-footer-margin+4)
+    .setSize(width/3 - margin, footer-8)
     .setFont(createFont("arial", 10))
     .setColorForeground(color(20, 80, 0))
     .setColorBackground(color(80, 20, 0))
-    .setBroadcast(false)
     .setLabel("CONNECT")
+        .setBroadcast(true)
     ;
   ;
 }
