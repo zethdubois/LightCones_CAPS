@@ -32,7 +32,7 @@ void Survey() {
     for (int x = 0; x < scannerCount; x++) {
       bX = margin + (x*bW+ margin * x);
       bY = header + (margin*2) + (y*bH+ margin * y);
-      bName = "# Light "+(index+1)+"   ["+(y+1)+"-"+(x+1)+"]";  
+      bName = "Cone "+(y+1)+"  Zone "+(x+1);  
       lights[index] = new Light(bX, bY, bW, bH, bName, cPick, index++);
       //println(lights[index-1]+" specifications stored.");
     }

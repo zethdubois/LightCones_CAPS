@@ -3,6 +3,7 @@ Boolean CON_CHANGED = false;
 int com = 1;
 String Com = "COM";
 String LoadLightProg [];
+import java.util.*;
 
 
 void WritePort(String msg) {
@@ -47,8 +48,14 @@ void load () {
     tempStr += FileStr[i]; //get the array into a string
   }
   String parse[] = split(tempStr,'/');
-  coneCount = int(parse[0]);
-  scannerCount = int(parse[1]);
+  println(Arrays.toString(parse));
+  String parse2[] = split(parse[0],':');
+  sliders[0].setValue(Float.parseFloat(parse2[0]));
+  sliders[1].setValue(Float.parseFloat(parse2[1]));
+
+
+  Router("SetupGrp","false");
+    println("Hey, wait a minute: scannercount: "+scannerCount);
   LoadLightProg = split(parse[1], '|');
   for (int i=0; i<LoadLightProg.length; i++) {
     print(LoadLightProg[i]);
