@@ -3,6 +3,10 @@ Boolean initTF = true;
 String ExecStr;
 
 
+void Restart(){
+  Program.restart();
+}
+
 void Router(String go, String msg) {  //
   println("<--- Router(go, msg: " 
     +go

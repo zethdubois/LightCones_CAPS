@@ -1,4 +1,4 @@
-int coneCount = 5;
+int coneCount = 6;
 int scannerCount =1;
 
 int buttCush = 6;
