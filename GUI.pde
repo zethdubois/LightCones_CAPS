@@ -58,7 +58,7 @@ void UpdateUI(String msg) {
       connect_B.setColorBackground(color(30, 100, 0));
       connect_B.setColorForeground(color(100, 30, 0));
     } else {
-      exec_B.setLabel("NOT CONNECTED");
+      exec_B.setLabel("CONNECT");
       connect_B.setLabel("CONNECT");
       connect_B.setColorForeground(color(30, 100, 0));
       connect_B.setColorBackground(color(100, 30, 0));
@@ -100,23 +100,14 @@ void DrawConsole() {
 
   console = cp5.addTextarea("console")
     .setPosition(margin, height-footer-margin)
-    .setSize(width/3*2-margin*2, footer)
+    .setSize(width-margin*2, footer)
     .setFont(createFont("consolas", 12))
     .setColor(color(100))
     .setColorBackground(color(45, 70, 95))
     .setColorForeground(100)
     .setText(t)
     ;
-  connect_B = cp5.addButton("connect_B")
-    .setBroadcast(false)
-    .setPosition(width/3*2, height-footer-margin+4)
-    .setSize(width/3 - margin, footer-8)
-    .setFont(createFont("arial", 10))
-    .setColorForeground(color(20, 80, 0))
-    .setColorBackground(color(80, 20, 0))
-    .setLabel("CONNECT")
-        .setBroadcast(true)
-    ;
+
   ;
 }
 void SetAllButton(int unit, int xMult, int wMult) {
@@ -138,7 +129,7 @@ void ExecButton(int unit, int xMult, int wMult) {
     .setWidth(unit*wMult-mMarg)
     .setHeight(mH)
     .setFont(menuFont)
-    .setLabel("NOT CONNECTED")
+    .setLabel("CONNECT")
     .setBroadcast(true)
     ;
 }

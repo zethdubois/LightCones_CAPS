@@ -3,8 +3,8 @@ Boolean initTF = true;
 String ExecStr;
 
 
-void Restart(){
-  Program.restart();
+void Restart() {
+  setup();
 }
 
 void Router(String go, String msg) {  //
@@ -66,8 +66,19 @@ void Router(String go, String msg) {  //
 
       WritePort(ExecStr);
     } else {
-      println ("not connected");
-      UpdateUI("No serial connectin has been achieved.");
+      try {
+        port= new Serial(this, Serial.list()[0], 9600);
+        //if (Serial.list()[0].isEmpty()) {        }
+        updateText = "Wahooo! connected @ "+Serial.list()[0];
+
+        Com=Serial.list()[0];
+        CON_CHANGED = true;
+      } 
+      catch (Exception e) {
+        updateText = "Booo, can't find a valid serial connection!  :(";
+      }
+      //println ("not connected");
+      //UpdateUI("No serial connectin has been achieved.");
     }
 
     break;
