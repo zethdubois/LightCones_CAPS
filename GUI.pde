@@ -20,7 +20,7 @@ Boolean updated = false;
 int origValue;
 
 Textarea console;
-Button connect_B, exec_B, setAll_B;
+Button exec_B, setAll_B;
 RadioButton cm_rb; 
 
 StringList statusLine;
@@ -57,14 +57,8 @@ void UpdateUI(String msg) {
     CONNECTED = !CONNECTED;
     if (CONNECTED) {
       exec_B.setLabel("EXECUTE");
-      connect_B.setLabel("DISCONNECT");
-      connect_B.setColorBackground(color(30, 100, 0));
-      connect_B.setColorForeground(color(100, 30, 0));
     } else {
       exec_B.setLabel("CONNECT");
-      connect_B.setLabel("CONNECT");
-      connect_B.setColorForeground(color(30, 100, 0));
-      connect_B.setColorBackground(color(100, 30, 0));
     }
     CON_CHANGED = !CON_CHANGED;
   }

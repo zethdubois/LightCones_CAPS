@@ -1,4 +1,4 @@
-Boolean SETBUTTS = false; //<>// //<>//
+Boolean SETBUTTS = false; //<>// //<>// //<>//
 Boolean initTF = true;
 String ExecStr;
 int colorMode = 2;
@@ -111,13 +111,14 @@ void Router(String go, String msg) {  //
     //  break;
   case "exec_B":
     MakeExecStr();
-    println ("hey bozo: "+ExecStr);
+
     //UpdateUI(ExecStr);
     if (CONNECTED) {
-
+      println ("hey bozo: "+ExecStr);
 
       WritePort(ExecStr);
     } else {
+      println("try to connect");
       try {
         port= new Serial(this, Serial.list()[0], 9600);
         //if (Serial.list()[0].isEmpty()) {        }
