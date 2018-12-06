@@ -249,6 +249,7 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setValue(hue)
     .setGroup(groups[2])
     .setLabel("HUE")
+    .hide()
     ;
   c1Sliders[1] = cp5.addSlider("brightness")
     .setBroadcast(false)
@@ -262,6 +263,7 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setValue(brightness)
     .setGroup(groups[2])
     .setLabel("BRIGHTNESS")
+    .hide()
     ;
   colorMode(RGB);
   c2Sliders[0] = cp5.addSlider("rgbR")
@@ -276,7 +278,6 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setValue(rgbR)
     .setGroup(groups[2])
     .setLabel("R")
-    .hide()
     ;
   c2Sliders[1] = cp5.addSlider("rgbG")
     .setBroadcast(false)
@@ -290,7 +291,6 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setValue(rgbG)
     .setGroup(groups[2])
     .setLabel("G")
-    .hide()
     ;
   c2Sliders[2] = cp5.addSlider("rgbB")
     //?! don't setBrodcast(false), it breaks something, it's soooooooo weird
@@ -304,7 +304,6 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setValue(rgbB)
     .setGroup(groups[2])
     .setLabel("B")
-    .hide()
     ;
   for (Slider slider : c2Sliders) {
     slider.setBroadcast(true);
