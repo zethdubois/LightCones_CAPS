@@ -18,6 +18,9 @@ int rgbR = 0;
 int rgbG = 20;
 int rgbB = 100;
 
+int hue = 0;
+int brightness = 100;
+
 color cPick_def = color(rgbR, rgbG, rgbB, 100);
 color cPick;
 color offBlack;// = color (rgbR, rgbG, rgbB,255);
@@ -69,9 +72,12 @@ void draw() {
   if (!PAUSE) {
     if (SETBUTTS) {  //program mode--reveal extra GUI >> GUI class
       guis[0].display("all");
-      guis[1].display("red");
-      guis[2].display("green");
-      guis[3].display("blue");
+      if (colorMode == 2) {
+
+        guis[1].display("red");
+        guis[2].display("green");
+        guis[3].display("blue");
+      }
     }
     fill(100);
 

@@ -11,15 +11,17 @@ int zone_count;
 int linenum = 0;
 
 Slider sliders[];
-Slider cSliders[];
+Slider c1Sliders[], c2Sliders[];
 Group groups[];
 
 int numSliders = 2;
 int numGroups = 3;
 Boolean updated = false;
 int origValue;
+
 Textarea console;
 Button connect_B, exec_B, setAll_B;
+RadioButton cm_rb; 
 
 StringList statusLine;
 
@@ -32,7 +34,8 @@ void DrawGui() {
 
   cone_count = coneCount;
   sliders = new Slider[numSliders];
-  cSliders = new Slider[3];
+  c1Sliders = new Slider[2];
+  c2Sliders = new Slider[3];
   groups = new Group[numGroups];
   unit = width/6;
   menuFont = createFont("calibri light bold", 13);
@@ -217,8 +220,8 @@ void AssignMenu(int unit, int xMult, int wMult) {
   CColor menuCol = new CColor(yellow, yellow, yellow, yellow, yellow);
   menuCol.setActive(color(100, 100, 100));
   menuCol.setBackground(color(100, 100, 100));  
-  menuCol.setForeground(color(100, 100, 100));  
-  groups[2] = cp5.addGroup("g3")
+  menuCol.setForeground(color(100, 100, 100));
+  groups[2] = cp5.addGroup("program_gr")
     .setPosition(x, mH)
     .setWidth(w)
     .setHeight(mH)
@@ -233,8 +236,36 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setFont(menuFont)
     .close()
     ;
-  cSliders[0] = cp5.addSlider("rgbR")
-  .setBroadcast(false)
+  colorMode(HSB);
+  c1Sliders[0] = cp5.addSlider("hue")
+    .setBroadcast(false)
+    .setPosition(0, 0)
+    .setWidth(w-15)
+    .setHeight(int(sH*1.5))
+    .setRange(0, 100)
+    .setColorBackground(color(0, 0, 100, 20))
+    .setColorForeground(color(0, 0, 100))
+    .setColorActive(color(0, 0, 100))    
+    .setValue(hue)
+    .setGroup(groups[2])
+    .setLabel("HUE")
+    ;
+  c1Sliders[1] = cp5.addSlider("brightness")
+    .setBroadcast(false)
+    .setPosition(0, 33)
+    .setWidth(w-15)
+    .setHeight(int(sH*1.5))
+    .setRange(0, 100)
+    .setColorBackground(color(100, 0, 0, 20))
+    .setColorForeground(color(100, 0, 0))
+    .setColorActive(color(100, 0, 0))    
+    .setValue(brightness)
+    .setGroup(groups[2])
+    .setLabel("BRIGHTNESS")
+    ;
+  colorMode(RGB);
+  c2Sliders[0] = cp5.addSlider("rgbR")
+    .setBroadcast(false)
     .setPosition(0, 0)
     .setWidth(w-15)
     .setHeight(sH)
@@ -244,10 +275,11 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setColorActive(color(100, 0, 0))    
     .setValue(rgbR)
     .setGroup(groups[2])
-    .setLabel("R");
-  ;
-  cSliders[1] = cp5.addSlider("rgbG")
-  .setBroadcast(false)
+    .setLabel("R")
+    .hide()
+    ;
+  c2Sliders[1] = cp5.addSlider("rgbG")
+    .setBroadcast(false)
     .setPosition(0, 22)
     .setWidth(w-15)
     .setHeight(sH)    
@@ -257,10 +289,11 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setColorActive(color(0, 100, 0))
     .setValue(rgbG)
     .setGroup(groups[2])
-    .setLabel("G");
-  ;
-  cSliders[2] = cp5.addSlider("rgbB")
-
+    .setLabel("G")
+    .hide()
+    ;
+  c2Sliders[2] = cp5.addSlider("rgbB")
+    //?! don't setBrodcast(false), it breaks something, it's soooooooo weird
     .setPosition(0, 44)
     .setWidth(w-15)
     .setHeight(sH)
@@ -270,9 +303,13 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setColorActive(color(0, 0, 100))
     .setValue(rgbB)
     .setGroup(groups[2])
-    .setLabel("B");
-  ;
-    for (Slider slider : cSliders) {
+    .setLabel("B")
+    .hide()
+    ;
+  for (Slider slider : c2Sliders) {
+    slider.setBroadcast(true);
+  }
+  for (Slider slider : c1Sliders) {
     slider.setBroadcast(true);
   }
 }
@@ -280,7 +317,7 @@ void AssignMenu(int unit, int xMult, int wMult) {
 void ProgMenu(int unit, int xMult, int wMult) {
   int x = unit * xMult;
   int w = unit * wMult;
-  groups[1] = cp5.addGroup("g2")
+  groups[1] = cp5.addGroup("mode_gr")
     .setPosition(x, mH)
     .setWidth(w)
     .setHeight(mH)
@@ -292,7 +329,7 @@ void ProgMenu(int unit, int xMult, int wMult) {
     .close()
     ;
 
-  cp5.addRadioButton("radioButton")
+  cm_rb = cp5.addRadioButton("colormode_rb")
     .setPosition(20, 10)
     .setSize(18, 18)
     .setColorForeground(color(0, 75, 0))
@@ -301,10 +338,10 @@ void ProgMenu(int unit, int xMult, int wMult) {
     .setColorLabel(color(100))
     .setItemsPerRow(1)
     .setSpacingColumn(50)
-    .addItem("Execute", 1)
-    .addItem("Script", 2)   
+    .addItem("HUE", 1)
+    .addItem("RGB", 2)   
     .setGroup(groups[1])
-    .activate(0)
+    .activate(1)
     ;
 
   cp5.addBang("save")

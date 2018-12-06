@@ -38,7 +38,7 @@ class Light {
     }
   }
   void MakeButtons() {
-    println("*******************MAKE BUTTONS ---"+buttI);
+    //println("*******************MAKE BUTTONS ---"+buttI);
 
     String hColor  = "#"+(hex(color(cPick)).substring(2));
     //println("hColor = "+hColor);

@@ -51,14 +51,12 @@ class GUI {
     y = yIn;
     w = wIn;
     h = hIn;
-
   }
   void update() {
   }
   void makeGUI() {
   }
-  void butt(){
-    
+  void butt() {
   }
   void display(String channel) {
     int R=0;
@@ -66,6 +64,9 @@ class GUI {
     int B=0;
     String t = "";
     switch(channel) {
+      case "hue":
+      R=hue;
+      t = str(R);
     case "red":
       R=rgbR;
       t = str(R);
@@ -79,15 +80,28 @@ class GUI {
       t = str(B);
       break;
     case "all":
-      R=rgbR;
-      G=rgbG;
-      B=rgbB;
+      if (colorMode == 2) {
+        R=rgbR;
+        G=rgbG;
+        B=rgbB;
+      } else {
+        R=hue; //hue, actually 
+        G=100;
+        B=brightness;
+      }
       break;
+    }
+    pushStyle();
+    if (colorMode == 1) { //HSB
+      colorMode(HSB, 100);
+    } else {
+      colorMode(RGB,100);
     }
     noStroke();
     fill (R, G, B, 255);
     rect(x, y, w, h);
     fill (255, 255, 255);
     text (t, x, y+h);
+    popStyle();
   }
 }

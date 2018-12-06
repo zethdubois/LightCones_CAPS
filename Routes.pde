@@ -1,10 +1,34 @@
 Boolean SETBUTTS = false; //<>// //<>//
 Boolean initTF = true;
 String ExecStr;
+int colorMode = 2;
 
 
 void Restart() {
   setup();
+}
+
+void SetColorSwitch() {
+  println("==>SetColorSwitch()");
+  println(colorMode);
+
+  if (colorMode == 1) {
+    println("1");
+    for (Slider slider : c2Sliders) {
+      println(slider.getName());      
+      slider.hide();
+    }
+    for (Slider slider : c1Sliders) {
+      slider.show();
+    }
+  } else {
+    for (Slider slider : c1Sliders) {
+      slider.hide();
+    }
+    for (Slider slider : c2Sliders) {
+      slider.show();
+    }
+  }
 }
 
 void Router(String go, String msg) {  //
@@ -16,7 +40,24 @@ void Router(String go, String msg) {  //
 
   String updateText = "";
 
+  if (go == "hue" || go == "brightness" ) {
+    println("-----------------------------------what is hue value?  "+hue);
+    cPick = color(hue, 100, brightness, 100);
+    offBlack = color (hue*.25, 25, brightness*.25);
+    c1Sliders[0].setColorBackground(color(hue, 0, 100, 20));
+    c1Sliders[0].setColorForeground(color(hue, 0, 100));
+    c1Sliders[0].setColorActive(color(hue, 0, 100));
+    println ("SEEEEE "+SETBUTTS);
 
+    if (SETBUTTS) {  // the slider change conditions should only be reached when SETBUTTS, anyway, but this ensures no GUI events get confused.
+      for (Light light : lights) {
+        butts[light.buttI].setColorForeground(cPick); // foreground is when hovered  //DEBUG
+        //butts[light.buttI].setColorActive(cPick);  // active is when ON
+      }
+      //> add change hover for setAll_B
+      setAll_B.setColorForeground(cPick);
+    }
+  }
   if (go == "rgbR" || go == "rgbG" || go == "rgbB") {
     cPick = color(rgbR, rgbG, rgbB, 100);
     offBlack = color (rgbR*.25, rgbG*.25, rgbB*.25);
@@ -36,6 +77,17 @@ void Router(String go, String msg) {  //
 
   switch(go) {
 
+  case "colormode_rb":
+    int c = int(cm_rb.getValue());
+    println (c);
+    if (c<0) cm_rb.activate(0);
+    if (c==2) {
+      colorMode = 2;
+    } else {
+      colorMode = 1;
+    }
+    SetColorSwitch();
+    break;
   case "SetupGrp":
     if (Boolean.parseBoolean(msg)) {
     } else {
@@ -82,7 +134,7 @@ void Router(String go, String msg) {  //
     }
 
     break;
-  case "g3": // GUI group 3, program menu
+  case "program_gr": // GUI group 3, program menu
     SETBUTTS = Boolean.parseBoolean(msg);  //str convert message to bool true/false
 
     if (SETBUTTS) { //if menu is open, change light buttons to program mode
@@ -146,6 +198,9 @@ void Router(String go, String msg) {  //
   console.scroll(.9);
 }
 
+public void colormode_rb() {
+  println ("> colormode radiobutton event");
+}
 //**************************************************************
 void controlEvent(ControlEvent theEvent) {
   println("*** GUI EVENT");
@@ -156,6 +211,7 @@ void controlEvent(ControlEvent theEvent) {
     Router(conName, null);
   }
   if (theEvent.isGroup()) {
+    //? radiobutton is also a group. what to do with that?
     String ISOPEN = str(theEvent.getGroup().isOpen());
     println("got an event from group "
       +theEvent.getGroup().getName()
