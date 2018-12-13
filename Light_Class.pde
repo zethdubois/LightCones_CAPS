@@ -29,7 +29,10 @@ class Light {
     println("<##--Program(state, buttI "+state+" "+buttI);
 
     if (state) { // ready to program
-      butts[buttI].setLabel("assign color");
+      String bl="assign color";
+      if (setNeg_TF) bl = "SET NEG CNTRL";
+      if (setPos_TF) bl = "SET POS CNTRL";
+      butts[buttI].setLabel(bl);
       println();
       butts[buttI].setOff(); // during setcolor programing, there is no need to toggle the button on or off/ stay off.
     } else {
@@ -115,12 +118,24 @@ class Light {
 String LightMsg(int bi) {
   Boolean power = butts[bi].getBooleanValue();
   String lColor = butts[bi].getStringValue();
-
+  int expSet = int(butts[bi].getValue());
+  String expStr ="";
   String smsg;
+  switch(expSet) {
+
+  case 1:
+    expStr = ":N-CTRL";
+    break;
+  case 2:
+    expStr = ":P-CTRL";
+    break;
+  default:
+    break;
+  }
   if (power) {
-    smsg = "<+"+bi+"*"+lColor+">";
+    smsg = "<+"+bi+"*"+lColor+expStr+">";
   } else {
-    smsg = "<-"+bi+">";
+    smsg = "<-"+bi+expStr+">";
   }
   return smsg;
 }
@@ -128,6 +143,16 @@ String LightMsg(int bi) {
 
 void SetLight(int bi) { //CallbackListener bang, String bName, int bi) {
   println ("<--SetLight(bi)");//listener, bname, bi)");
+  println ("Set Positive Ctrl? "+setPos_TF);
+  println ("Set Negative  Ctrl? "+setNeg_TF);
+  //- store to the button a value flag indicating positve control
+  //- 1 = neg, 2 = pos, 0 = nil
+  if (setPos_TF) butts[bi].setValue(2); 
+  if (setNeg_TF) butts[bi].setValue(1);
+  if ((!setNeg_TF) && (!setPos_TF)) {
+    butts[bi].setValue(0);
+  }
+  println ("The button is has special attribute set at: "+butts[bi].getValue());
   String hColor  = "#"+(hex(color(cPick)).substring(2));
   println(hColor);
   //println(power); //toggle on or off?

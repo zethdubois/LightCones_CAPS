@@ -56,6 +56,7 @@ void Router(String go, String msg) {  //
       }
       //> add change hover for setAll_B
       setAll_B.setColorForeground(cPick);
+      posCtrl_B.setColorForeground(cPick);
     }
   }
   if (go == "rgbR" || go == "rgbG" || go == "rgbB") {
@@ -70,6 +71,7 @@ void Router(String go, String msg) {  //
       }
       //> add change hover for setAll_B
       setAll_B.setColorForeground(cPick);
+      posCtrl_B.setColorForeground(cPick);
     }
   }
 
@@ -144,6 +146,8 @@ void Router(String go, String msg) {  //
         lights[i].Program(Boolean.valueOf(msg), i);
       }
       setAll_B.show();
+      posCtrl_B.show();
+      negCtrl_B.show();
     } else {  //leaving program mode; restore the colors to the BG color
       for (int i = 0; i<lightCount; i++) {
         //butts[i].setColorBackground(colBG[i]);
@@ -153,11 +157,28 @@ void Router(String go, String msg) {  //
         //lights[i].Program(Boolean.valueOf(msg), i);
       }
       setAll_B.hide(); //hide setall button
+      posCtrl_B.hide();
+      negCtrl_B.hide();
     }
 
     break;
   case "cone_count":
+    break;  
+  case "posCtrl_B":
+    setPos_TF = !setPos_TF;
+    setNeg_TF=false;
+    println(setPos_TF);
+    for (int i = 0; i<lightCount; i++) {
+      //color1[i]=butts[i].getColor().getForeground(); //get the current BG color
+      lights[i].Program(true, i);
+    }
     break;
+  case "negCtrl_B":
+    setNeg_TF = !setNeg_TF;
+    setPos_TF=false;
+    println(setPos_TF);
+
+    break;    
   case "setAll_B":
     for (int i = 0; i<lightCount; i++) {
       SetLight(i);

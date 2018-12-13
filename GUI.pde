@@ -25,6 +25,9 @@ RadioButton cm_rb;
 
 StringList statusLine;
 
+Boolean setPos_TF = false;
+Boolean setNeg_TF = false;
+
 
 void cone_count(int theValue) {
   println("--> coneCount("+theValue);
@@ -43,7 +46,7 @@ void DrawGui() {
   ProgMenu(unit, 1, 2);
   AssignMenu(unit, 3, 2);
   ExecButton(unit, 5, 1);
-  SetAllButton(unit, 2, 1);
+  SetAllButton(unit, 5, 1);
   ExperimentButtons(unit, 5, 1);
   DrawConsole();
 }
@@ -111,27 +114,44 @@ void DrawConsole() {
 void SetAllButton(int unit, int xMult, int wMult) {
   setAll_B= cp5.addButton("setAll_B")
     .setBroadcast(false)
-    .setPosition(unit*xMult+mMarg, (header-mH*2))
+    .setPosition(unit*xMult+mMarg, (header-(mH*.5)))
     .setWidth(unit*wMult-(mMarg*3))
-    .setHeight(mH*2)
+    .setHeight(mH*int(1.25))
     .setFont(menuFont)
     .setLabel("Assign All")
+    .setColorLabel(#FFCC00)
     .hide()
     .setBroadcast(true)
     ;
+  setAll_B.setColorForeground(cPick);
 }
 
 void ExperimentButtons(int unit, int xMult, int wMult) {
+  println("experiment now");
   negCtrl_B= cp5.addButton("negCtrl_B")
     .setBroadcast(false)
-    .setPosition(unit*xMult+mMarg, (header-mH*2))
+    .setPosition(unit*xMult+mMarg, (header-mH*2)+(mMarg*2))
     .setWidth(unit*wMult-(mMarg*3))
-    .setHeight(mH*2)
+    .setHeight(mH*int(1.25))
     .setFont(menuFont)
-    .setLabel("Negative Control")
+    .setLabel("Neg Control")
+    .setColorLabel(#F00000)
     .hide()
     .setBroadcast(true)
     ;
+  posCtrl_B= cp5.addButton("posCtrl_B")
+    .setBroadcast(false)
+    .setColorLabel(#00FF38)
+    
+    .setPosition(unit*xMult+mMarg, (header-mH*3)+mMarg)
+    .setWidth(unit*wMult-(mMarg*3))
+    .setHeight(mH*int(1.25))
+    .setFont(menuFont)
+    .setLabel("Pos Control")
+    .hide()
+    .setBroadcast(true)
+    ;    
+  posCtrl_B.setColorForeground(cPick);
 }
 void ExecButton(int unit, int xMult, int wMult) {
   exec_B= cp5.addButton("exec_B")
@@ -245,7 +265,7 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .close()
     ;
   colorMode(HSB);
-  c1Sliders[0] = cp5.addSlider("hue")
+  c1Sliders[0] = cp5.addSlider("hue_sl")
     .setBroadcast(false)
     .setPosition(0, 0)
     .setWidth(w-15)
@@ -259,7 +279,7 @@ void AssignMenu(int unit, int xMult, int wMult) {
     .setLabel("HUE")
     .hide()
     ;
-  c1Sliders[1] = cp5.addSlider("brightness")
+  c1Sliders[1] = cp5.addSlider("brightness_sl")
     .setBroadcast(false)
     .setPosition(0, 33)
     .setWidth(w-15)

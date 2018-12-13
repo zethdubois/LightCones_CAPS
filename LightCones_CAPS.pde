@@ -15,8 +15,8 @@ PImage bgImg;
 PFont dripFont;
 
 int rgbR = 0;
-int rgbG = 20;
-int rgbB = 100;
+int rgbG = 0;
+int rgbB = 0;
 
 int hue = 0;
 int brightness = 100;
