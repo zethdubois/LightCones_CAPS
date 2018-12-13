@@ -28,8 +28,9 @@ void Survey() {
   int bX2, bY2;
   int index = 0;
   String bName;
-  for (int y = 0; y < coneCount; y++) {
-    for (int x = 0; x < scannerCount; x++) {
+  for (int x = 0; x < scannerCount; x++) {
+    for (int y = 0; y < coneCount; y++) {
+
       bX = margin + (x*bW+ margin * x);
       bY = header + (margin*2) + (y*bH+ margin * y);
       bName = "Cone "+(y+1)+"  Zone "+(x+1);  
@@ -64,7 +65,7 @@ class GUI {
     int B=0;
     String t = "";
     switch(channel) {
-      case "hue":
+    case "hue":
       R=hue;
       t = str(R);
     case "red":
@@ -95,7 +96,7 @@ class GUI {
     if (colorMode == 1) { //HSB
       colorMode(HSB, 100);
     } else {
-      colorMode(RGB,100);
+      colorMode(RGB, 100);
     }
     noStroke();
     fill (R, G, B, 255);
