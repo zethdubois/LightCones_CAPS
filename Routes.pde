@@ -79,6 +79,19 @@ void Router(String go, String msg) {  //
 
   switch(go) {
 
+  case "expSet_rb":
+    int q = int(expSet_rb.getValue());
+    println ("setExp radiobutton: "+q);
+    if (q<0) {
+      setNeg_TF = false;
+      setPos_TF = false;
+    }
+    if (q==2) {
+      setPos_TF = !setPos_TF;
+    } else {
+      setNeg_TF = !setNeg_TF;
+    }
+    break;
   case "colormode_rb":
     int c = int(cm_rb.getValue());
     println (c);
@@ -146,8 +159,9 @@ void Router(String go, String msg) {  //
         lights[i].Program(Boolean.valueOf(msg), i);
       }
       setAll_B.show();
-      posCtrl_B.show();
-      negCtrl_B.show();
+      //expSet_rb.show();
+      //posCtrl_B.show();
+      //negCtrl_B.show();
     } else {  //leaving program mode; restore the colors to the BG color
       for (int i = 0; i<lightCount; i++) {
         //butts[i].setColorBackground(colBG[i]);
@@ -157,8 +171,7 @@ void Router(String go, String msg) {  //
         //lights[i].Program(Boolean.valueOf(msg), i);
       }
       setAll_B.hide(); //hide setall button
-      posCtrl_B.hide();
-      negCtrl_B.hide();
+      //expSet_rb.hide();
     }
 
     break;

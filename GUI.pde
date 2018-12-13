@@ -21,7 +21,7 @@ int origValue;
 
 Textarea console;
 Button exec_B, setAll_B, negCtrl_B, posCtrl_B;
-RadioButton cm_rb; 
+RadioButton cm_rb, expSet_rb; 
 
 StringList statusLine;
 
@@ -47,7 +47,7 @@ void DrawGui() {
   AssignMenu(unit, 3, 2);
   ExecButton(unit, 5, 1);
   SetAllButton(unit, 5, 1);
-  ExperimentButtons(unit, 5, 1);
+  //ExperimentButtons(unit, 5, 1);
   DrawConsole();
 }
 
@@ -128,30 +128,21 @@ void SetAllButton(int unit, int xMult, int wMult) {
 
 void ExperimentButtons(int unit, int xMult, int wMult) {
   println("experiment now");
-  negCtrl_B= cp5.addButton("negCtrl_B")
-    .setBroadcast(false)
-    .setPosition(unit*xMult+mMarg, (header-mH*2)+(mMarg*2))
-    .setWidth(unit*wMult-(mMarg*3))
-    .setHeight(mH*int(1.25))
-    .setFont(menuFont)
-    .setLabel("Neg Control")
-    .setColorLabel(#F00000)
-    .hide()
-    .setBroadcast(true)
+    expSet_rb = cp5.addRadioButton("expSet_rb")
+    .setPosition(unit*xMult+mMarg, (header-(mH*3)))
+    .setSize(18, 18)
+    .setColorForeground(color(0, 75, 0))
+    .setColorBackground(color(40))
+    .setColorActive(color(100))
+    .setColorLabel(color(100))
+    .setItemsPerRow(1)
+    .setSpacingColumn(50)
+    .addItem("POS CTRL", 1)
+    .addItem("NEG CTRL", 2)   
+    .setGroup(groups[3])
+    //.activate(0)
     ;
-  posCtrl_B= cp5.addButton("posCtrl_B")
-    .setBroadcast(false)
-    .setColorLabel(#00FF38)
-    
-    .setPosition(unit*xMult+mMarg, (header-mH*3)+mMarg)
-    .setWidth(unit*wMult-(mMarg*3))
-    .setHeight(mH*int(1.25))
-    .setFont(menuFont)
-    .setLabel("Pos Control")
-    .hide()
-    .setBroadcast(true)
-    ;    
-  posCtrl_B.setColorForeground(cPick);
+  println("exp buttons setup");
 }
 void ExecButton(int unit, int xMult, int wMult) {
   exec_B= cp5.addButton("exec_B")
