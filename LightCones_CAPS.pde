@@ -63,8 +63,8 @@ void setup() {
 }
 
 void draw() {
-  //background(0);
-  background(bgImg);
+  background(0);
+  //background(bgImg);
   // fill (255, 200, 0);
   //textAlign();
 
